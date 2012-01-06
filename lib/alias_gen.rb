@@ -8,13 +8,14 @@ module SshKeyMan
       groups = get_user_groups(user,servers)
 
       puts "\e[31m You can copy below code to '~/.bash_profile' or '~/.bashrc'. \e[0m"
-      puts "============================================="
+      puts "#*********************************************"
       groups.each do |group|
+        puts "#========= #{group} ========="
         servers[group]["servers"].each do | server |
-          puts "alias #{group}_#{server['alias']}=\"#{server['user']}@#{server['host']}\""
+          puts "alias #{server['alias']}=\"#{server['user']}@#{server['host']}\""
         end
       end
-      puts "============================================="
+      puts "#*********************************************"
     end
 
     def self.get_user_groups(user,servers)
