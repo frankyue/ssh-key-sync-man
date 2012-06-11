@@ -3,6 +3,7 @@
 require File.join File.dirname(__FILE__), '..', 'lib', 'uploader'
 require File.join File.dirname(__FILE__), '..', 'lib', 'file_combiner'
 require File.join File.dirname(__FILE__), '..', 'lib', 'alias_gen'
+require File.join File.dirname(__FILE__), '..', 'lib', 'user_create'
 require 'optparse'
 
 options = {}
@@ -17,12 +18,23 @@ OptionParser.new do |opts|
   opts.on("-g group", "--group group", "Server Group Name") do |group|
     options[:group] = group
   end
+
+  opts.on("-u group", "--add su user for group","add new user for group") do |group|
+    options[:ugroup] = group
+  end
+
 end.parse!
 
 begin
   # check alias option
   if !(alias_for_user = options[:alias_for_user]).nil?
     SshKeyMan::AliasGen.generate alias_for_user
+    exit
+  end
+
+  # add sa user
+  if !(ugroup = options[:ugroup]).nil?
+    SshKeyMan::UserCreate.create_user ugroup
     exit
   end
 

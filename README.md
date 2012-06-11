@@ -27,6 +27,7 @@ Usage
             user: app
             alias: app_server
         users: [ jaon, ryan ]
+        sa: [ jaon]
 
       GroupB
         servers:

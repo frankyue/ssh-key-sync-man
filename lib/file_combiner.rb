@@ -1,11 +1,11 @@
 module SshKeyMan
   class PublicKeyCombiner
-    def self.combine group
+    def self.combine group, user="users"
       puts "combining public keys ..."
 
       server_list_path = File.join(".", "server_list.yml")
 
-      users = YAML::load_file(server_list_path)[group]['users']
+      users = YAML::load_file(server_list_path)[group][user]
 
       raise "No users are seted in #{group} config" if users.nil?
 
